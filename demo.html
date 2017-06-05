@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue TW city selector</title>
+    <style type="text/css">
+        .tw_city_selector {
+        }
+        .tw_city_selector .city {
+        }
+        .tw_city_selector .district {
+        }
+        .tw_city_selector .street {
+        }
+        .tw_city_selector .alert {
+            color: red;
+            border: solid red;
+            border-width: 1px;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://unpkg.com/vue@2.3.3"></script>
+    <script type="text/javascript" src="vue.tw-city-selector.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function(){ 
+            new Vue({
+                el: '#my_address',
+                data: {
+                    the_address: {
+                        city: "新竹市",
+                        district: "東區",
+                        street: "博愛街111號"
+                    },
+                    is_readonly: false
+                },
+                mounted: function() {
+                    this.on_address_changed();
+                },
+                methods: {
+                    on_input_clicked: function() {
+                        console.log("address clicked");
+                    },
+                    on_address_changed: function() {
+                        document.getElementById("address_output").innerHTML = 
+                            this.the_address.city + this.the_address.district + this.the_address.street;
+                    }
+                }
+            });
+        }, false);
+    </script>
+</head>
+<body>
+    <div id="my_address">
+        <span >地址：</span>
+        <div style="display: inline-block">
+            <tw-city-selector v-bind:addr="the_address" 
+                              v-bind:is_readonly="is_readonly"
+                              v-on:input_clicked="on_input_clicked"
+                              v-on:address_changed="on_address_changed">
+            </tw-city-selector>
+        </div>
+    </div>
+    <br/>
+    <div>
+    輸出：<span id="address_output"></span>
+    </div>
+</body>
+</html>
+
